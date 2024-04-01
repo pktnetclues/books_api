@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize("gaana", "root", "", {
+const sequelize = new Sequelize("library", "root", "", {
   host: "localhost",
   dialect: "mysql",
 });
@@ -8,7 +8,7 @@ const sequelize = new Sequelize("gaana", "root", "", {
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Connected to gaana database");
+    console.log("Connected to Library database");
   })
   .catch((error) => {
     console.error("Unable to connect to the database:", error);

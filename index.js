@@ -1,10 +1,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const sequelize = require("./src/utils/connection");
 const authorRoutes = require("./src/routes/authorRoutes");
-
-const bodyParser = require("body-parser");
 const bookRoutes = require("./src/routes/bookRoutes");
+const genreRoutes = require("./src/routes/genreRoutes");
 
 const app = express();
 // Configuring dotenv
@@ -13,9 +15,10 @@ dotenv.config();
 // Middlewares
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 // All Routes
-app.use("/api/", authorRoutes, bookRoutes);
+app.use("/api/", authorRoutes, bookRoutes, genreRoutes);
 
 // Default Route
 app.get("/", (req, res) => {

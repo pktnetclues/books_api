@@ -5,7 +5,7 @@ const deleteBook = async (req, res) => {
   const { book_id } = req.body;
 
   if (!book_id) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: "Book ID is required" });
   }
 
   try {
@@ -23,6 +23,16 @@ const deleteBook = async (req, res) => {
     await sequelize.query(`DELETE FROM books WHERE book_id = ${book_id}`, {
       type: QueryTypes.DELETE,
     });
+
+    await sequelize.query(
+      `DELETE FROM book_authors WHERE book_id = ${book_id}`,
+      { type: QueryTypes.DELETE }
+    );
+
+    await sequelize.query(
+      `DELETE FROM book_genres WHERE book_id = ${book_id}`,
+      { type: QueryTypes.DELETE }
+    );
 
     return res.status(200).json({ message: "Book deleted successfully" });
   } catch (error) {

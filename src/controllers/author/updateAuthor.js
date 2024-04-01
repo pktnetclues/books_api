@@ -2,7 +2,7 @@ const { QueryTypes } = require("sequelize");
 
 const sequelize = require("../../utils/connection");
 
-const addAuthor = async (req, res) => {
+const updateAuthor = async (req, res) => {
   const { id, name, bio } = req.body;
 
   if (!id || !name || !bio) {
@@ -17,14 +17,14 @@ const addAuthor = async (req, res) => {
     );
 
     // Checking if the author already exists
-    if (getAuther.length) {
-      return res.status(400).json({ message: "Author already exists" });
+    if (!getAuther.length) {
+      return res.status(400).json({ message: "Auther does not exists" });
     }
 
     // Inserting data into the author table
     await sequelize.query(
-      `INSERT INTO author (author_id, author_name, author_bio) VALUES (${id}, '${name}', '${bio}')`,
-      { type: QueryTypes.INSERT }
+      `UPDATE author SET author_name = '${name}', author_bio = '${bio}' WHERE author_id = ${id}`,
+      { type: QueryTypes.UPDATE }
     );
 
     return res.status(200).json({ message: "success" });
@@ -33,4 +33,4 @@ const addAuthor = async (req, res) => {
   }
 };
 
-module.exports = addAuthor;
+module.exports = updateAuthor;
