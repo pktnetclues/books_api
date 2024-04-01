@@ -2,17 +2,9 @@ const { QueryTypes } = require("sequelize");
 const sequelize = require("../../utils/connection");
 
 const addBook = async (req, res) => {
-  const { book_id, title, description, published_year, genre_id, author_id } =
-    req.body;
+  const { book_id, title, description, published_year } = req.body;
 
-  if (
-    !book_id ||
-    !title ||
-    !description ||
-    !published_year ||
-    !genre_id ||
-    !author_id
-  ) {
+  if (!book_id || !title || !description || !published_year) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -39,7 +31,7 @@ const addBook = async (req, res) => {
 
     // Inserting data into the book table
     await sequelize.query(
-      `INSERT INTO books (book_id, title, description, published_year, genre_id, author_id) VALUES (${book_id}, '${title}', '${description}', ${published_year}, ${genre_id}, ${author_id})`,
+      `INSERT INTO books (book_id, title, description, published_year) VALUES (${book_id}, '${title}', '${description}', ${published_year})`,
       { type: QueryTypes.INSERT }
     );
 

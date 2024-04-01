@@ -10,7 +10,7 @@ const deleteAuthor = async (req, res) => {
   }
 
   const checkIfAutherWithBooksExists = await sequelize.query(
-    `SELECT * FROM book WHERE author_id = ${author_id}`,
+    `SELECT author_id, books.book_id FROM author LEFT JOIN books on  WHERE author_id = ${author_id}`,
     { type: QueryTypes.SELECT }
   );
 
