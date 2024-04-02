@@ -2,14 +2,7 @@ const { QueryTypes } = require("sequelize");
 const sequelize = require("../../utils/connection");
 
 const updateBook = async (req, res) => {
-  const {
-    book_id,
-    title,
-    description,
-    published_year,
-    author_name,
-    genre_name,
-  } = req.body;
+  const { book_id, title, description, published_year } = req.body;
 
   if (!book_id || !title || !description || !published_year) {
     return res.status(400).json({ message: "All fields are required" });
@@ -17,22 +10,22 @@ const updateBook = async (req, res) => {
 
   try {
     // Checking if the author exists
-    const authorExists = await sequelize.query(
-      `SELECT author_id FROM author WHERE author_name = '${author_name}'`,
-      { type: QueryTypes.SELECT }
-    );
-    if (!authorExists.length) {
-      return res.status(400).json({ message: "Author does not exist" });
-    }
+    // const authorExists = await sequelize.query(
+    //   `SELECT author_id FROM author WHERE author_name = '${author_name}'`,
+    //   { type: QueryTypes.SELECT }
+    // );
+    // if (!authorExists.length) {
+    //   return res.status(400).json({ message: "Author does not exist" });
+    // }
 
-    // Checking if the genre exists
-    const genreExists = await sequelize.query(
-      `SELECT genre_id FROM genre WHERE genre_name = '${genre_name}'`,
-      { type: QueryTypes.SELECT }
-    );
-    if (!genreExists.length) {
-      return res.status(400).json({ message: "Genre does not exist" });
-    }
+    // // Checking if the genre exists
+    // const genreExists = await sequelize.query(
+    //   `SELECT genre_id FROM genre WHERE genre_name = '${genre_name}'`,
+    //   { type: QueryTypes.SELECT }
+    // );
+    // if (!genreExists.length) {
+    //   return res.status(400).json({ message: "Genre does not exist" });
+    // }
 
     // Checking if the book exists
     const bookExists = await sequelize.query(

@@ -4,6 +4,8 @@ const deleteBook = require("../controllers/books/deleteBook");
 const getBooks = require("../controllers/books/getBooks");
 const updateBook = require("../controllers/books/updateBook");
 const getBookByID = require("../controllers/books/getBookById");
+const authMiddleware = require("../middlewares/authMiddleware");
+const searchBooks = require("../controllers/books/searchBook");
 
 const bookRoutes = express.Router();
 
@@ -20,6 +22,9 @@ bookRoutes.get("/getBookById/:book_id", getBookByID);
 bookRoutes.delete("/deleteBook/:book_id", deleteBook);
 
 // Update book
-bookRoutes.put("/updateBook", updateBook);
+bookRoutes.patch("/updateBook", updateBook);
+
+// Search books
+bookRoutes.get("/searchBooks", searchBooks);
 
 module.exports = bookRoutes;
