@@ -2,7 +2,7 @@ const { QueryTypes } = require("sequelize");
 const sequelize = require("../../utils/connection");
 
 const deleteBook = async (req, res) => {
-  const { book_id } = req.body;
+  const { book_id } = req.params;
 
   if (!book_id) {
     return res.status(400).json({ message: "Book ID is required" });
@@ -34,7 +34,7 @@ const deleteBook = async (req, res) => {
       { type: QueryTypes.DELETE }
     );
 
-    return res.status(200).json({ message: "Book deleted successfully" });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
