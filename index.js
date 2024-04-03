@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const sequelize = require("./src/utils/connection");
 const authorRoutes = require("./src/routes/authorRoutes");
@@ -16,7 +17,8 @@ dotenv.config();
 // Middlewares
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // All Routes
 app.use("/api/", authorRoutes, bookRoutes, genreRoutes, adminRoutes);

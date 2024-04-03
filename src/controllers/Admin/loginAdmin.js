@@ -19,7 +19,7 @@ const loginAdmin = async (req, res) => {
 
     // Checking if the admin exists
     if (!getAdmin.length) {
-      return res.status(400).json({ message: "email does not exists" });
+      return res.status(400).json({ message: "wrong email" });
     }
 
     // Getting the hashed password from the database
@@ -29,8 +29,10 @@ const loginAdmin = async (req, res) => {
     const validPassword = await bcrypt.compare(password, hashedPassword);
 
     if (!validPassword) {
-      return res.status(400).json({ message: "Invalid password" });
+      return res.status(400).json({ message: "wrong password" });
     } else {
+      const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+      const expirationDate = new Date(Date.now() + oneDayMilliseconds);
       return jwt.sign(
         {
           id: getAdmin[0].id,
@@ -42,12 +44,15 @@ const loginAdmin = async (req, res) => {
           if (err) {
             return res.status(500).json({ message: err.message });
           }
+
           return res
             .status(200)
             .cookie("token", token, {
               httpOnly: true,
-              secure: false,
+              secure: true,
+              expires: expirationDate,
               sameSite: "none",
+              path: "/",
             })
             .json({ message: "success" });
         }
