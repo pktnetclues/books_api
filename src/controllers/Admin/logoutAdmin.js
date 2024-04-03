@@ -11,7 +11,7 @@ const logoutAdmin = async (req, res) => {
       sameSite: "none",
       path: "/",
     });
-    res.status(200).json({ message: "Logged out successfully" });
+    res.status(200).json({ message: "success" });
   } catch (err) {
     res.status(500).json(err);
   }

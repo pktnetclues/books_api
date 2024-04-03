@@ -38,13 +38,13 @@ const loginAdmin = async (req, res) => {
           id: getAdmin[0].id,
           email: getAdmin[0].email,
           name: getAdmin[0].name,
+          profilePic: getAdmin[0].profilePic,
         },
         process.env.JWT_SECRET,
         (err, token) => {
           if (err) {
             return res.status(500).json({ message: err.message });
           }
-
           return res
             .status(200)
             .cookie("token", token, {
@@ -54,7 +54,7 @@ const loginAdmin = async (req, res) => {
               sameSite: "none",
               path: "/",
             })
-            .json({ message: "success" });
+            .json({ message: "success", token });
         }
       );
     }

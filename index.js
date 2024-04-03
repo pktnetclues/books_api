@@ -18,7 +18,20 @@ dotenv.config();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
+// Static Files
+app.use(
+  "/public/profilePics",
+  express.static(__dirname + "/public/profilePics")
+);
+
+// Cors
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // All Routes
 app.use("/api/", authorRoutes, bookRoutes, genreRoutes, adminRoutes);

@@ -5,8 +5,7 @@ const sequelize = require("../utils/connection");
 
 const authMiddleware = async (req, res, next) => {
   try {
-    // Extract token from the request header
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.cookies.token;
 
     if (!token) {
       return res.status(401).json({ error: "Unauthorized: Missing token" });

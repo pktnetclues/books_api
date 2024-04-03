@@ -14,7 +14,7 @@ const searchBooks = async (req, res) => {
        WHERE b.title LIKE :searchQuery OR b.description LIKE :searchQuery`,
       {
         type: QueryTypes.SELECT,
-        replacements: { searchQuery: `%${searchQuery}%` }, // Using placeholders to prevent SQL injection
+        replacements: { searchQuery: `%${searchQuery}%` },
       }
     );
 

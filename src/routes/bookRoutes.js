@@ -13,18 +13,18 @@ const bookRoutes = express.Router();
 bookRoutes.post("/addBook", addBook);
 
 // Get all books
-bookRoutes.get("/getBooks", getBooks);
+bookRoutes.get("/getBooks", authMiddleware, getBooks);
 
 //Get Book By ID
-bookRoutes.get("/getBookById/:book_id", getBookByID);
+bookRoutes.get("/getBookById/:book_id", authMiddleware, getBookByID);
 
 // Delete book
-bookRoutes.delete("/deleteBook/:book_id", deleteBook);
+bookRoutes.delete("/deleteBook/:book_id", authMiddleware, deleteBook);
 
 // Update book
-bookRoutes.patch("/updateBook", updateBook);
+bookRoutes.patch("/updateBook", authMiddleware, updateBook);
 
 // Search books
-bookRoutes.get("/searchBooks", searchBooks);
+bookRoutes.get("/searchBooks", authMiddleware, searchBooks);
 
 module.exports = bookRoutes;
