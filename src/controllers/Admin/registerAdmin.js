@@ -12,8 +12,6 @@ const registerAdmin = async (req, res) => {
     profilePic = req.file.filename;
   }
 
-  console.log(profilePic);
-
   if (!name || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }

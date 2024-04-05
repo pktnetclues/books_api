@@ -52,7 +52,6 @@ const loginAdmin = async (req, res) => {
               secure: true,
               expires: expirationDate,
               sameSite: "none",
-              path: "/",
             })
             .json({ message: "success", token });
         }

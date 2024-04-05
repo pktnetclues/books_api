@@ -12,14 +12,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileHandleMiddleware = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 },
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-});
-
 // Check file type
 function checkFileType(file, cb) {
   // Allowed filetypes
@@ -35,6 +27,14 @@ function checkFileType(file, cb) {
     cb("Error: Images only!");
   }
 }
+
+const fileHandleMiddleware = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+});
 
 // Export the profilePicUpload function
 module.exports = fileHandleMiddleware;
